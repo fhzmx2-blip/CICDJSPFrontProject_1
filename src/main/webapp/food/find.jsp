@@ -40,11 +40,28 @@ function commons(page){
 		traditional: true,
 		success:function(result){
 			let json=JSON.parse(result)
-			console.log(json) 
+			$('#ss').val(json[0].ss)
+			jsonView(json)
 		}
 	})
 }
+function jsonView(json){
+	let html='';
+	json.forEach((food)=>{
+		html+='<div class="col-sm-3">'
+			+'<a href="#">'
+			+'<div class="thumbnail">'
+			+'<img src="'+food.poster+'" style="width:250px;height:130px">'
+			+'</div>'
+			+'<p>'+food.name+'</p>'
+			+'</a>'
+			+'</div>'
+	})	
+	$('#print').html(html)
+}
 $(function(){
+	commons(1)
+	
 	$('.btns').on('click',function(){
 		commons(1)
 	})
@@ -64,11 +81,11 @@ $(function(){
 			<input type="checkbox" name="type" value="C">일식
 			<input type="checkbox" name="type" value="D">중식
 			<input type="checkbox" name="type" value="E">분식
-			<input type="text" id="ss" class="input-sm" size="15" value="${ss }">
+			<input type="text" id="ss" class="input-sm" size="15" value="마포">
 			<button class="btn btn-sm btn-primary btns">검색</button>
 			
 		</div>
-		<div class="row" style="margin-top:20px">
+		<div class="row" style="margin-top:20px" id="print">
 			<%-- <c:forEach var="vo" items="${list}">
 				<div class="col-sm-3">
 					<a href="#">
